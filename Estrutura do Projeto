@@ -1,0 +1,14 @@
+finance-manager-java/
+│
+├── src/
+│   ├── model/
+│   │     ├── Transaction.java
+│   │     └── TransactionType.java
+│   │
+│   ├── service/
+│   │     └── FinanceService.java
+│   │
+│   └── Main.java
+│
+├── data.csv
+└── README.md
