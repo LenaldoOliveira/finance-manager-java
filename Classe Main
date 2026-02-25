@@ -1,0 +1,53 @@
+import model.TransactionType;
+import service.FinanceService;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        FinanceService service = new FinanceService();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\n1 - Adicionar Receita");
+            System.out.println("2 - Adicionar Despesa");
+            System.out.println("3 - Listar Transações");
+            System.out.println("4 - Ver Saldo");
+            System.out.println("5 - Sair");
+
+            int option = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (option) {
+                case 1:
+                    System.out.print("Descrição: ");
+                    String descIncome = scanner.nextLine();
+                    System.out.print("Valor: ");
+                    double valueIncome = scanner.nextDouble();
+                    service.addTransaction(descIncome, valueIncome, TransactionType.INCOME);
+                    break;
+
+                case 2:
+                    System.out.print("Descrição: ");
+                    String descExpense = scanner.nextLine();
+                    System.out.print("Valor: ");
+                    double valueExpense = scanner.nextDouble();
+                    service.addTransaction(descExpense, valueExpense, TransactionType.EXPENSE);
+                    break;
+
+                case 3:
+                    service.listTransactions();
+                    break;
+
+                case 4:
+                    System.out.println("Saldo atual: " + service.getBalance());
+                    break;
+
+                case 5:
+                    System.exit(0);
+            }
+        }
+    }
+}
