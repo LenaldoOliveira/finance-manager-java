@@ -1,0 +1,48 @@
+package service;
+
+import model.Transaction;
+import model.TransactionType;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class FinanceService {
+
+    private List<Transaction> transactions = new ArrayList<>();
+    private final String FILE_NAME = "data.csv";
+
+    public void addTransaction(String description, double amount, TransactionType type) {
+        Transaction transaction = new Transaction(description, amount, type);
+        transactions.add(transaction);
+        saveToFile(transaction);
+    }
+
+    public void listTransactions() {
+        for (Transaction t : transactions) {
+            System.out.println(t.getDescription() + " | " + t.getAmount() + " | " + t.getType());
+        }
+    }
+
+    public double getBalance() {
+        double balance = 0;
+
+        for (Transaction t : transactions) {
+            if (t.getType() == TransactionType.INCOME) {
+                balance += t.getAmount();
+            } else {
+                balance -= t.getAmount();
+            }
+        }
+        return balance;
+    }
+
+    private void saveToFile(Transaction transaction) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
+            writer.write(transaction.toString());
+            writer.newLine();
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar arquivo.");
+        }
+    }
+}
